@@ -87,11 +87,19 @@ bool DHT22SensorServer::readByte(const int pin, unsigned char* byte) {
 }
 
 double DHT22SensorServer::getCurrentValue(QString identifier) {
+    bool identifierOk = false;
+    int pin = identifier.toInt(&identifierOk);
+    if (!identifierOk) {
+        QString lastError = QString("Incorrect format identifier \"%1\".").arg(identifier);
+        this -> setLastError(identifier, lastError);
+        qDebug(lastError.toLocal8Bit().data());
+        return NAN;
+    }
     int attempt = 1;
     double humidity    = NAN;
     double temperature = NAN;
     while (attempt <= SENSOR_MAX_FAILED_ATTEMPTS) {
-        ErrorCodes result = this -> readDHT22(identifier.toInt(), &humidity, &temperature);
+        ErrorCodes result = this -> readDHT22(pin, &humidity, &temperature);
         switch (result) {
             case OperationOK: {
                 qDebug("Attempt %i: OperationOK", attempt);
