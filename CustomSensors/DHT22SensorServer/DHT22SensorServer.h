@@ -3,9 +3,6 @@
 
 #include "GenericSensorServer.h"
 
-#include <errno.h>
-#include <math.h>
-
 #include <wiringPi.h>
 
 /** Количество байт данных, читаемых из датчика.
@@ -51,8 +48,6 @@
 #define SENSOR_MAX_FAILED_ATTEMPTS 5
 
 class DHT22SensorServer : public GenericSensorServer {
-
-Q_OBJECT
 
 public:
 
