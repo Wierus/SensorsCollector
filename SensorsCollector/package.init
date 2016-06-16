@@ -2,8 +2,8 @@
 
 ### BEGIN INIT INFO
 # Provides:          sensors-collector
-# Required-Start:    $remote_fs $syslog
-# Required-Stop:     $remote_fs $syslog
+# Required-Start:    mysql
+# Required-Stop:     mysql
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
 # Short-Description: sensors-collector
@@ -49,7 +49,7 @@ DAEMON_PIDFILE="/var/run/$DAEMON_NAME.pid"
 #
 do_start() {
     log_daemon_msg "Starting $DAEMON_NAME daemon"
-    start-stop-daemon --start --background --pidfile $DAEMON_PIDFILE --make-pidfile --chuid $DAEMON_USER:$DAEMON_USER --startas $DAEMON_EXE_FILE -- $DAEMON_ARGS
+    start-stop-daemon --start --background --pidfile $DAEMON_PIDFILE --make-pidfile --chuid $DAEMON_USER --startas $DAEMON_EXE_FILE -- $DAEMON_ARGS
     log_end_msg $?
 }
 
