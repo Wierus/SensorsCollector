@@ -1,0 +1,12 @@
+Source: system-temperature-sensor-server
+Section: unknown
+Priority: optional
+Maintainer: w <w@unknown>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.4
+Homepage: https://github.com/Wierus/SensorsCollector
+
+Package: system-temperature-sensor-server
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: system-temperature-sensor-server
