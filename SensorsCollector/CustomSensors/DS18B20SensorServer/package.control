@@ -1,0 +1,12 @@
+Source: ds18b20-sensor-server
+Section: unknown
+Priority: optional
+Maintainer: w <w@unknown>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.4
+Homepage: https://github.com/Wierus/SensorsCollector
+
+Package: ds18b20-sensor-server
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: ds18b20-sensor-server
