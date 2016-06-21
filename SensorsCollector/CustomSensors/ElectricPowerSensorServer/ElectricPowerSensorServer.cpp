@@ -12,7 +12,7 @@ ElectricPowerSensorServer::ElectricPowerSensorServer() {
         qDebug("Error occurred while initializing WiringPi");
     }
     this -> sensorsDataMap = new QMap<int, SensorData>();
-    for (int i = 0; i < SENSOR_MAX_COUNT; i++) {
+    for (int i = 0; i < ELECTRIC_POWER_SENSORS_MAX_COUNT; i++) {
         this -> interruptHandlersPinsArray[i] = -1;
     }
 }
@@ -31,8 +31,8 @@ void ElectricPowerSensorServer::interruptHandler(const int pin) {
     if (sensorsDataMap -> value(pin).impulsesCount > 0) {
         // интервал между текущим импульсом и самым ранним необработанным импульсом
         qint64 lastSpanMs = currentTime - sensorsDataMap -> operator[](pin).lastImpulseTime;
-        if (lastSpanMs > SENSOR_IMPULSES_SPAN_IGNORE_TIME) {
-            if (lastSpanMs <= SENSOR_IMPULSES_SPAN_WARNING_TIME) {
+        if (lastSpanMs > ELECTRIC_POWER_IMPULSES_SPAN_IGNORE_TIME) {
+            if (lastSpanMs <= ELECTRIC_POWER_IMPULSES_SPAN_WARNING_TIME) {
                 qDebug() << "span: " << lastSpanMs << "WARNING";
             }
             sensorsDataMap -> operator[](pin).impulsesSpanMs += lastSpanMs;

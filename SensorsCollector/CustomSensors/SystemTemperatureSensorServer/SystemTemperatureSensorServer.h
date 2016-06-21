@@ -3,8 +3,8 @@
 
 #include "GenericSensorServer.h"
 
-#define SENSOR_FILE_PATH        "/sys/class/thermal/thermal_zone0/temp"
-#define SENSOR_VALUE_MULTIPLIER 0.001
+#define SYSTEM_TEMPERATURE_FILE_PATH        "/sys/class/thermal/thermal_zone0/temp"
+#define SYSTEM_TEMPERATURE_VALUE_MULTIPLIER 0.001
 
 class SystemTemperatureSensorServer : public GenericSensorServer {
 

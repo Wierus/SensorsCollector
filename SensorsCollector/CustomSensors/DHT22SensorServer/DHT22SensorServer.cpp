@@ -13,21 +13,21 @@ DHT22SensorServer::ErrorCodes DHT22SensorServer::readDHT22(const int pin, double
     if (!this -> sendStartSignal(pin)) {
         return ResponseSignalNotDetected;
     }
-    unsigned char data[SENSOR_DATA_LENGTH] = {0};
+    unsigned char data[DHT22_DATA_LENGTH] = {0};
     if (!this -> readData(pin, data)) {
         return TimeoutReadError;
     }
     unsigned char parity = 0;
-    for (int i = 0; i < SENSOR_DATA_LENGTH - 1; i++) {
+    for (int i = 0; i < DHT22_DATA_LENGTH - 1; i++) {
         parity += data[i];
     }
-    if (parity != data[SENSOR_DATA_LENGTH - 1]) {
+    if (parity != data[DHT22_DATA_LENGTH - 1]) {
         return ParityReadError;
     }
     short humidityData    = (data[0] << 8) + data[1];
     short temperatureData = (data[2] << 8) + data[3];
-    if (temperatureData & SENSOR_TEMPERATURE_SIGN_MASK) {
-        temperatureData &= ~SENSOR_TEMPERATURE_SIGN_MASK;
+    if (temperatureData & DHT22_TEMPERATURE_SIGN_MASK) {
+        temperatureData &= ~DHT22_TEMPERATURE_SIGN_MASK;
         temperatureData = -temperatureData;
     }
     *humidity    = humidityData    * 0.1;
@@ -38,9 +38,9 @@ DHT22SensorServer::ErrorCodes DHT22SensorServer::readDHT22(const int pin, double
 bool DHT22SensorServer::sendStartSignal(const int pin) {
     pinMode(pin, OUTPUT);
     digitalWrite(pin, LOW);
-    delay(SENSOR_T_be);
+    delay(DHT22_T_be);
     pinMode(pin, INPUT);
-    delayMicroseconds(SENSOR_T_go);
+    delayMicroseconds(DHT22_T_go);
     if (!this -> waitLowHigh(pin)) {
         return false;
     }
@@ -48,7 +48,7 @@ bool DHT22SensorServer::sendStartSignal(const int pin) {
 }
 
 bool DHT22SensorServer::waitLowHigh(const int pin) {
-    unsigned int timeout = millis() + SENSOR_TIMEOUT;
+    unsigned int timeout = millis() + DHT22_TIMEOUT;
     while (digitalRead(pin) == HIGH) {
         if (millis() > timeout) {
             return false;
@@ -64,7 +64,7 @@ bool DHT22SensorServer::waitLowHigh(const int pin) {
 
 bool DHT22SensorServer::readData(const int pin, unsigned char data[]) {
     pinMode(pin, INPUT);
-    for (int i = 0; i < SENSOR_DATA_LENGTH; i++) {
+    for (int i = 0; i < DHT22_DATA_LENGTH; i++) {
         if (!this -> readByte(pin, &data[i])) {
             return false;
         }
@@ -77,7 +77,7 @@ bool DHT22SensorServer::readByte(const int pin, unsigned char* byte) {
         if (!this -> waitLowHigh(pin)) {
             return false;
         }
-        delayMicroseconds(SENSOR_T_H0);
+        delayMicroseconds(DHT22_T_H0);
         *byte <<= 1;
         if (digitalRead(pin) == HIGH) {
             *byte |= 1;
@@ -98,7 +98,7 @@ double DHT22SensorServer::getCurrentValue(QString identifier) {
     int attempt = 1;
     double humidity    = NAN;
     double temperature = NAN;
-    while (attempt <= SENSOR_MAX_FAILED_ATTEMPTS) {
+    while (attempt <= DHT22_MAX_FAILED_ATTEMPTS) {
         ErrorCodes result = this -> readDHT22(pin, &humidity, &temperature);
         switch (result) {
             case OperationOK: {
@@ -119,9 +119,9 @@ double DHT22SensorServer::getCurrentValue(QString identifier) {
             }
         }
         attempt++;
-        delay(SENSOR_FAILED_REPEAT_INTERVAL);
+        delay(DHT22_FAILED_REPEAT_INTERVAL);
     }
-    QString lastError = QString("Maximum number of failed attempts (%1 attempts) exceeded for sensor \"%2\".").arg(SENSOR_MAX_FAILED_ATTEMPTS).arg(identifier);
+    QString lastError = QString("Maximum number of failed attempts (%1 attempts) exceeded for sensor \"%2\".").arg(DHT22_MAX_FAILED_ATTEMPTS).arg(identifier);
     this -> setLastError(identifier, lastError);
     qDebug(lastError.toLocal8Bit().data());
     return NAN;

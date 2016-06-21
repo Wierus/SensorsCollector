@@ -13,39 +13,39 @@
  * Byte 3: Temperature low
  * Byte 4: Parity bits
  */
-#define SENSOR_DATA_LENGTH 5
+#define DHT22_DATA_LENGTH 5
 
 /** Host the start signal down time (ms).
  */
-#define SENSOR_T_be  1
+#define DHT22_T_be  1
 
 /** Bus master has released time (us).
  */
-#define SENSOR_T_go 30
+#define DHT22_T_go 30
 
 /** Signal "0" high time (us).
  */
-#define SENSOR_T_H0 26
+#define DHT22_T_H0 26
 
 /** Signal "1" high time (us).
  */
-#define SENSOR_T_H1 70
+#define DHT22_T_H1 70
 
 /** Максимальное время ожидания изменения уровня сигнала на шине (мкс).
  */
-#define SENSOR_TIMEOUT 85
+#define DHT22_TIMEOUT 85
 
 /** Битовая маска знака температуры (бит "1" - знак).
  */
-#define SENSOR_TEMPERATURE_SIGN_MASK 0b1000000000000000
+#define DHT22_TEMPERATURE_SIGN_MASK 0b1000000000000000
 
 /** Интервал повторного опроса датчика в случае неудачной попытки (мс).
  */
-#define SENSOR_FAILED_REPEAT_INTERVAL 2000
+#define DHT22_FAILED_REPEAT_INTERVAL 2000
 
 /** Максимальное количество допустимых неудачных попыток для получения значения датчика.
  */
-#define SENSOR_MAX_FAILED_ATTEMPTS 5
+#define DHT22_MAX_FAILED_ATTEMPTS 5
 
 class DHT22SensorServer : public GenericSensorServer {
 
