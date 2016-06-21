@@ -7,8 +7,8 @@ TEMPLATE = lib
 
 CONFIG += staticlib
 
-SOURCES += \
-    GenericSensorServer.cpp
-
 HEADERS += \
     GenericSensorServer.h
+
+SOURCES += \
+    GenericSensorServer.cpp
