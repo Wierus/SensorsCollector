@@ -44,8 +44,8 @@ cd ../..
 #########################################
 
 # Копирование файлов в директорию "debian"
-cp package.control  $PACKAGE_TARGET_DIR/debian/control
-cp package.init     $PACKAGE_TARGET_DIR/debian/$DAEMON_NAME.init
+cp package/package.control $PACKAGE_TARGET_DIR/debian/control
+cp package/package.init    $PACKAGE_TARGET_DIR/debian/$DAEMON_NAME.init
 
 # Создание в пакете директорий
 mkdir --parents --verbose $PACKAGE_TARGET_DIR/debian/$DAEMON_NAME/usr/local/bin

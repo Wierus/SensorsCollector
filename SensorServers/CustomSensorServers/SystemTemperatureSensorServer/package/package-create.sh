@@ -3,13 +3,13 @@
 #########################
 
 # Имя службы
-DAEMON_NAME="sensors-collector"
+DAEMON_NAME="system-temperature-sensor-server"
 # Версия службы
 DAEMON_VERSION="1.0.0"
 # Имя пакета (включая версию)
 PACKAGE_NAME=$DAEMON_NAME"_"$DAEMON_VERSION
 # Имя проекта в Qt
-QT_PROJECT_NAME="SensorsCollector"
+QT_PROJECT_NAME="SystemTemperatureSensorServer"
 # Конфигурация проекта в Qt (Release/Debug)
 QT_PROJECT_CONFIGURATION="Release"
 # Директория файлов пакета для сборки (будет пересоздана)
@@ -44,17 +44,13 @@ cd ../..
 #########################################
 
 # Копирование файлов в директорию "debian"
-cp package.control  $PACKAGE_TARGET_DIR/debian/control
-cp package.init     $PACKAGE_TARGET_DIR/debian/$DAEMON_NAME.init
-cp package.postinst $PACKAGE_TARGET_DIR/debian/$DAEMON_NAME.postinst
+cp package/package.control $PACKAGE_TARGET_DIR/debian/control
+cp package/package.init    $PACKAGE_TARGET_DIR/debian/$DAEMON_NAME.init
 
 # Создание в пакете директорий
-mkdir --parents --verbose $PACKAGE_TARGET_DIR/debian/$DAEMON_NAME/etc
 mkdir --parents --verbose $PACKAGE_TARGET_DIR/debian/$DAEMON_NAME/usr/local/bin
-mkdir --parents --verbose $PACKAGE_TARGET_DIR/debian/$DAEMON_NAME/var/log/$DAEMON_NAME
 
 # Копирование файлов в пакет (файлы должны существовать)
-cp $DAEMON_NAME.conf                                           $PACKAGE_TARGET_DIR/debian/$DAEMON_NAME/etc
 cp $QT_PROJECT_NAME-$QT_PROJECT_CONFIGURATION/$QT_PROJECT_NAME $PACKAGE_TARGET_DIR/debian/$DAEMON_NAME/usr/local/bin/$DAEMON_NAME
 
 # Установка флага "+x" для запускаемых файлов

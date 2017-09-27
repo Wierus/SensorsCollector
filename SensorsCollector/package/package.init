@@ -24,9 +24,6 @@ DAEMON_EXE_FILE="/usr/local/bin/$DAEMON_NAME"
 # Директория для лог-файлов службы
 DAEMON_LOG_DIR="/var/log/$DAEMON_NAME"
 
-# Файл настроек службы
-DAEMON_SETTINGS_FILE="/etc/$DAEMON_NAME.conf"
-
 # Аргументы запуска службы
 DAEMON_ARGS="$DAEMON_LOG_DIR $DAEMON_SETTINGS_FILE"
 

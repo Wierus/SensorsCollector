@@ -3,13 +3,13 @@
 #########################
 
 # Имя службы
-DAEMON_NAME="dht22-sensor-server"
+DAEMON_NAME="bmp180-sensor-server"
 # Версия службы
 DAEMON_VERSION="1.0.0"
 # Имя пакета (включая версию)
 PACKAGE_NAME=$DAEMON_NAME"_"$DAEMON_VERSION
 # Имя проекта в Qt
-QT_PROJECT_NAME="DHT22SensorServer"
+QT_PROJECT_NAME="BMP180SensorServer"
 # Конфигурация проекта в Qt (Release/Debug)
 QT_PROJECT_CONFIGURATION="Release"
 # Директория файлов пакета для сборки (будет пересоздана)
@@ -44,8 +44,8 @@ cd ../..
 #########################################
 
 # Копирование файлов в директорию "debian"
-cp package.control  $PACKAGE_TARGET_DIR/debian/control
-cp package.init     $PACKAGE_TARGET_DIR/debian/$DAEMON_NAME.init
+cp package/package.control $PACKAGE_TARGET_DIR/debian/control
+cp package/package.init    $PACKAGE_TARGET_DIR/debian/$DAEMON_NAME.init
 
 # Создание в пакете директорий
 mkdir --parents --verbose $PACKAGE_TARGET_DIR/debian/$DAEMON_NAME/usr/local/bin
