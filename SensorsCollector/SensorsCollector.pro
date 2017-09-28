@@ -25,21 +25,20 @@ SOURCES += \
     Settings.cpp
 
 DISTFILES += \
-    package-create.sh \
-    package.control \
-    package.init \
-    package.postinst \
-    sensors-collector.conf
+    package/package-create.sh \
+    package/package.control \
+    package/package.init \
+    package/package.postinst
 
 INCLUDEPATH += \
-    CustomSensors/GenericSensorServer
+    ../SensorServers/GenericSensorServer
 
 LIBS += \
-    -L$$_PRO_FILE_PWD_/CustomSensors/GenericSensorServer/GenericSensorServer-Release \
+    -L../../SensorServers/GenericSensorServer/GenericSensorServer-Release \
     -lGenericSensorServer
 
 target.path = /home/pi/SensorsCollector
 INSTALLS += target
 
 QMAKE_POST_LINK += cd $$_PRO_FILE_PWD_;
-QMAKE_POST_LINK += $$_PRO_FILE_PWD_/package-create.sh;
+QMAKE_POST_LINK += $$_PRO_FILE_PWD_/package/package-create.sh;
